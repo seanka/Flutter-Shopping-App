@@ -139,7 +139,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   if (value!.isEmpty) {
                     return 'Please Enter a Description';
                   }
-                  if (value.length > 10) {
+                  if (value.length < 10) {
                     return 'Input is Too Short, Please Enter at Least 10 Characters Long';
                   }
                   return null;
@@ -196,13 +196,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         }
                         if (!value.startsWith('http') ||
                             !value.startsWith('https')) {
-                          return 'Please Enter a Valid URL';
+                          return 'Please Enter a Valid URL 1';
                         }
-                        if (!value.endsWith('.png') ||
-                            !value.endsWith('.jpg') ||
-                            !value.endsWith('.jpeg')) {
-                          return 'Please Enter a Valid URL';
-                        }
+                        // if (!value.endsWith('png') ||
+                        //     !value.endsWith('jpg') ||
+                        //     !value.endsWith('jpeg')) {
+                        //   return 'Please Enter a Valid URL 2';
+                        // }
                         return null;
                       },
                       onSaved: (value) {
