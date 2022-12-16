@@ -38,11 +38,22 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
+      if (!_imageUrlController.text.startsWith('http') &&
+              !_imageUrlController.text.startsWith('https') ||
+          !_imageUrlController.text.endsWith('.png') &&
+              !_imageUrlController.text.endsWith('.jpg') &&
+              !_imageUrlController.text.endsWith('.jpeg')) {
+        return;
+      }
       setState(() {});
     }
   }
 
   void _saveForm() {
+    final isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
     _form.currentState!.save();
   }
 
@@ -70,6 +81,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_priceFocusNode);
                 },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please Provide a Value';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                     id: '',
@@ -88,6 +105,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_descriptionFocusNode);
                 },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter a Price';
+                  }
+                  if (double.tryParse(value) == null) {
+                    return 'Please Enter a Valid Number';
+                  }
+                  if (double.parse(value) <= 0) {
+                    return 'Please Enter a Number Greater than Zero.';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                     id: '',
@@ -102,6 +131,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 decoration: const InputDecoration(labelText: 'Description'),
                 maxLines: 3,
                 keyboardType: TextInputType.multiline,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter a Description';
+                  }
+                  if (value.length > 10) {
+                    return 'Input is Too Short, Please Enter at Least 10 Characters Long';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                     id: '',
@@ -147,6 +185,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       },
                       onFieldSubmitted: (_) {
                         _saveForm();
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please Enter an Image URL';
+                        }
+                        if (!value.startsWith('http') ||
+                            !value.startsWith('https')) {
+                          return 'Please Enter a Valid URL';
+                        }
+                        if (!value.endsWith('.png') ||
+                            !value.endsWith('.jpg') ||
+                            !value.endsWith('.jpeg')) {
+                          return 'Please Enter a Valid URL';
+                        }
+                        return null;
                       },
                       onSaved: (value) {
                         _editedProduct = Product(
