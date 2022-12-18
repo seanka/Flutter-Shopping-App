@@ -58,28 +58,30 @@ class Products with ChangeNotifier {
       'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/',
       '/products.json',
     );
-    http.post(
-      url,
-      body: json.encode(
-        {
-          'title': product.title,
-          'description': product.description,
-          'imageUrl': product.imageUrl,
-          'price': product.price,
-          'isFavorite': product.isFavorite
-        },
-      ),
+    http
+        .post(url,
+            body: json.encode(
+              {
+                'title': product.title,
+                'description': product.description,
+                'imageUrl': product.imageUrl,
+                'price': product.price,
+                'isFavorite': product.isFavorite
+              },
+            ))
+        .then(
+      (value) {
+        final newProduct = Product(
+          title: product.title,
+          description: product.description,
+          imageUrl: product.imageUrl,
+          price: product.price,
+          id: json.decode(value.body)['name'],
+        );
+        _items.insert(0, newProduct);
+        notifyListeners();
+      },
     );
-
-    final newProduct = Product(
-      title: product.title,
-      description: product.description,
-      imageUrl: product.imageUrl,
-      price: product.price,
-      id: DateTime.now().toString(),
-    );
-    _items.insert(0, newProduct);
-    notifyListeners();
   }
 
   void updateProducts(String id, Product newProduct) {
