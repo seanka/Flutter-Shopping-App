@@ -185,8 +185,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   if (value!.isEmpty) {
                     return 'Please Enter a Description';
                   }
-                  if (value.length < 10) {
-                    return 'Input is Too Short, Please Enter at Least 10 Characters Long';
+                  if (value.length < 5) {
+                    return 'Input is Too Short, Please Enter at Least 5 Characters Long';
                   }
                   return null;
                 },
