@@ -54,10 +54,9 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product product) {
-    var url = Uri.https(
-      'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/',
-      '/products.json',
-    );
+    final url = Uri.parse(
+        'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/'
+        'products.json');
     http
         .post(url,
             body: json.encode(
