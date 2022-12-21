@@ -1,6 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -50,7 +53,7 @@ class AuthScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.deepOrange.shade900,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 8,
                             color: Colors.black26,
@@ -100,7 +103,7 @@ class _AuthCardState extends State<AuthCard> {
   var _isLoading = false;
   final _passwordController = TextEditingController();
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) {
       // Invalid!
       return;
@@ -113,6 +116,10 @@ class _AuthCardState extends State<AuthCard> {
       // Log user in
     } else {
       // Sign user up
+      await Provider.of<Auth>(context, listen: false).signup(
+        _authData['email'] as String,
+        _authData['password'] as String,
+      );
     }
     setState(() {
       _isLoading = false;
@@ -200,7 +207,9 @@ class _AuthCardState extends State<AuthCard> {
                     onPressed: _submit,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0, vertical: 8.0),
+                        horizontal: 30.0,
+                        vertical: 8.0,
+                      ),
                       backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -213,7 +222,9 @@ class _AuthCardState extends State<AuthCard> {
                   onPressed: _switchAuthMode,
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 4),
+                      horizontal: 30.0,
+                      vertical: 4,
+                    ),
                   ),
                   child: Text(
                     '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD',
