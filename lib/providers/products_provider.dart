@@ -62,7 +62,7 @@ class Products with ChangeNotifier {
     final filterString =
         filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     final url = Uri.parse(
-      'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/'
+      ''
       'products.json?auth=$authToken&$filterString',
     );
     try {
@@ -73,7 +73,7 @@ class Products with ChangeNotifier {
       }
       final favoriteResponse = await http.get(
         Uri.parse(
-          'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app'
+          ''
           '/userFavorites/$userId/$userId.json?auth=$authToken',
         ),
       );
@@ -99,7 +99,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
-      'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/'
+      ''
       'products.json?auth=$authToken',
     );
     try {
@@ -133,8 +133,8 @@ class Products with ChangeNotifier {
 
     if (prodIndex >= 0) {
       final url = Uri.parse(
-        'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/products'
-        '/$id.json?auth=$authToken',
+        ''
+        '/products/$id.json?auth=$authToken',
       );
       await http.patch(
         url,
@@ -152,8 +152,8 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final url = Uri.parse(
-      'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/products/$id.json'
-      '?auth=$authToken',
+      ''
+      '/products/$id.json?auth=$authToken',
     );
     final existingProductIndex =
         _items.indexWhere((element) => element.id == id);

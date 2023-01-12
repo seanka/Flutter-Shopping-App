@@ -29,7 +29,7 @@ class Product with ChangeNotifier {
     isFavorite = !isFavorite;
     notifyListeners();
     final url = Uri.parse(
-      'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app'
+      ''
       '/userFavorites/$userId/$id.json?auth=$token',
     );
     try {

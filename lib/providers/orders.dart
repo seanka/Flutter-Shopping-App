@@ -31,7 +31,7 @@ class Orders with ChangeNotifier {
 
   Future<void> fetchAndSetOrders() async {
     final url = Uri.parse(
-      'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/'
+      ''
       'orders/$userId.json?auth=$authToken',
     );
 
@@ -63,7 +63,7 @@ class Orders with ChangeNotifier {
 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.parse(
-      'https://flutter-shop-app-cf73e-default-rtdb.asia-southeast1.firebasedatabase.app/'
+      ''
       'orders/$userId.json?auth=$authToken',
     );
     final timestamp = DateTime.now();
