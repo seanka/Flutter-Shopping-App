@@ -67,11 +67,13 @@ class MyApp extends StatelessWidget {
                           : AuthScreen()),
                 ),
           routes: {
-            ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
-            CartScreen.routeName: (context) => CartScreen(),
-            OrdersScreen.routeName: (context) => OrdersScreen(),
-            UserProductsScreen.routeName: (context) => UserProductsScreen(),
-            EditProductScreen.routeName: (context) => EditProductScreen(),
+            ProductDetailScreen.routeName: (context) =>
+                const ProductDetailScreen(),
+            CartScreen.routeName: (context) => const CartScreen(),
+            OrdersScreen.routeName: (context) => const OrdersScreen(),
+            UserProductsScreen.routeName: (context) =>
+                const UserProductsScreen(),
+            EditProductScreen.routeName: (context) => const EditProductScreen(),
           },
         ),
       ),
